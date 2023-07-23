@@ -1,0 +1,38 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  /* border-style: solid; */
+}
+.blog-post {
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+  margin: 0 40px 35px 34px;
+}
+
+.blog-post-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.blog-post-date {
+  color: #666;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.blog-post-content {
+  margin-top: 70px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  font-size: 1.125rem;
+  line-height: 1.7777778;
+  padding: 20px;
+  color: #374151;
+}

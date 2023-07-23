@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import BlogPreviewCard from './Components/BlogPreviewCard';
+import BlogPage from './Pages/BlogPage';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const blogData = [
   {
@@ -93,7 +97,6 @@ const blogData = [
     content:
       'Object-Oriented Programming (OOP) is a programming paradigm based on the',
   },
-  // Add more blog data objects as needed
 ];
 
 const postsPerPage = 10;
@@ -114,85 +117,45 @@ function App() {
     setSelectedBlog(null);
   };
 
-  const renderBlogPreview = () => {
-    return (
-      <div>
-        <h2 className='navbar'>Tech Blog</h2>
-        <div className='blog-card-container'>
-          {currentPosts.map((blog) => (
-            <div
-              key={blog.id}
-              className='blog-card'
-              onClick={() => handleBlogClick(blog)}
-            >
-              <h3>{blog.title}</h3>
-              <p>{blog.content.slice(0, 100)}...</p>
-            </div>
-          ))}
-        </div>
-        <div className='pagination'>
-          {blogData.length > postsPerPage &&
-            Array.from(
-              { length: Math.ceil(blogData.length / postsPerPage) },
-              (_, index) => (
-                <span
-                  key={index}
-                  className={currentPage === index + 1 ? 'active' : ''}
-                  onClick={() => setCurrentPage(index + 1)}
-                >
-                  {index + 1}
-                </span>
-              )
-            )}
-        </div>
-      </div>
-    );
-  };
-
-  const renderFullBlogPost = () => {
-    return (
-      <div>
-        <h2 className='currentPost'>{selectedBlog.title}</h2>
-        <p className='currentPost'>{selectedBlog.content}</p>
-        <button onClick={handleBackToPreview} id='backButton'>
-          Back to Preview
-        </button>
-      </div>
-    );
-  };
-
   return (
     <Router>
-      {' '}
-      {/* Use BrowserRouter */}
       <div className='App'>
         <header>
-          <nav>
-            <ul>
-              <li>
-                <Link to='/'>
-                  <i className='fas fa-home'></i> Home
-                </Link>
-              </li>
-              <li>
-                <Link to='/projects'>
-                  <i className='fas fa-code'></i> Projects
-                </Link>
-              </li>
-              <li>
-                <Link to='/portfolio'>
-                  <i className='fas fa-briefcase'></i> Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link to='/contact'>
-                  <i className='fas fa-envelope'></i> Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
+          <Navbar />
         </header>
-        <main>{selectedBlog ? renderFullBlogPost() : renderBlogPreview()}</main>
+        <main>
+          {selectedBlog ? (
+            <BlogPage blog={selectedBlog} onClickBack={handleBackToPreview} />
+          ) : (
+            <>
+              <h2 className='navbar'>Tech Blog</h2>
+              <div className='blog-card-container'>
+                {currentPosts.map((blog) => (
+                  <BlogPreviewCard
+                    key={blog.id}
+                    blog={blog}
+                    onClick={handleBlogClick}
+                  />
+                ))}
+              </div>
+              <div className='pagination'>
+                {blogData.length > postsPerPage &&
+                  Array.from(
+                    { length: Math.ceil(blogData.length / postsPerPage) },
+                    (_, index) => (
+                      <span
+                        key={index}
+                        className={currentPage === index + 1 ? 'active' : ''}
+                        onClick={() => setCurrentPage(index + 1)}
+                      >
+                        <div className='pagination'>{index + 1}</div>
+                      </span>
+                    )
+                  )}
+              </div>
+            </>
+          )}
+        </main>
       </div>
     </Router>
   );

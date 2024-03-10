@@ -1,11 +1,3 @@
-import React, { useState } from 'react';
-import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './Components/Navbar';
-import BlogPreviewCard from './Components/BlogPreviewCard';
-import BlogPage from './Pages/BlogPage';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
 const blogData = [
   {
     id: 1,
@@ -99,6 +91,19 @@ const blogData = [
   },
 ];
 
+import React, { useState } from 'react';
+import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import Navbar from './Components/Navbar';
+import BlogPreviewCard from './Components/BlogPreviewCard';
+import BlogPage from './Pages/BlogPage';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import AboutMe from './Pages/AboutMe';
+import Contact from './Pages/Contact';
+import Portfolio from './Pages/Portfolio';
+import Project from './Pages/Project';
+
 const postsPerPage = 10;
 
 function App() {
@@ -119,44 +124,60 @@ function App() {
 
   return (
     <Router>
-      <div className='App'>
-        <header>
-          <Navbar />
-        </header>
-        <main>
-          {selectedBlog ? (
-            <BlogPage blog={selectedBlog} onClickBack={handleBackToPreview} />
-          ) : (
-            <>
-              <h2 className='navbar'>Tech Blog</h2>
-              <div className='blog-card-container'>
-                {currentPosts.map((blog) => (
-                  <BlogPreviewCard
-                    key={blog.id}
-                    blog={blog}
-                    onClick={handleBlogClick}
+      <Routes>
+        <Route path='/about' element={<AboutMe />} />
+        <Route
+          path='/'
+          element={
+            <div className='App'>
+              <header>
+                <Navbar />
+              </header>
+              <main>
+                {selectedBlog ? (
+                  <BlogPage
+                    blog={selectedBlog}
+                    onClickBack={handleBackToPreview}
                   />
-                ))}
-              </div>
-              <div className='pagination'>
-                {blogData.length > postsPerPage &&
-                  Array.from(
-                    { length: Math.ceil(blogData.length / postsPerPage) },
-                    (_, index) => (
-                      <span
-                        key={index}
-                        className={currentPage === index + 1 ? 'active' : ''}
-                        onClick={() => setCurrentPage(index + 1)}
-                      >
-                        <div className='pagination'>{index + 1}</div>
-                      </span>
-                    )
-                  )}
-              </div>
-            </>
-          )}
-        </main>
-      </div>
+                ) : (
+                  <>
+                    <h2 className='navbar'>Tech Blog</h2>
+                    <div className='blog-card-container'>
+                      {currentPosts.map((blog) => (
+                        <BlogPreviewCard
+                          key={blog.id}
+                          blog={blog}
+                          onClick={handleBlogClick}
+                        />
+                      ))}
+                    </div>
+                    <div className='pagination'>
+                      {blogData.length > postsPerPage &&
+                        Array.from(
+                          { length: Math.ceil(blogData.length / postsPerPage) },
+                          (_, index) => (
+                            <span
+                              key={index}
+                              className={
+                                currentPage === index + 1 ? 'active' : ''
+                              }
+                              onClick={() => setCurrentPage(index + 1)}
+                            >
+                              <div className='pagination'>{index + 1}</div>
+                            </span>
+                          )
+                        )}
+                    </div>
+                  </>
+                )}
+              </main>
+            </div>
+          }
+        />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/portfolio' element={<Portfolio />} />
+        <Route path='/projects' element={<Project />} />
+      </Routes>
     </Router>
   );
 }

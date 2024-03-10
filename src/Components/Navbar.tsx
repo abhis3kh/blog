@@ -10,6 +10,11 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
+          <Link to='/about'>
+            <i className='fas fa-user'></i> About Me
+          </Link>
+        </li>
+        <li>
           <Link to='/projects'>
             <i className='fas fa-code'></i> Projects
           </Link>

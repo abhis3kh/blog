@@ -7,6 +7,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding-top: 10px;
 }
 :-webkit-scrollbar-thumb {
   background: #2d67d3;
@@ -15,8 +16,9 @@ body {
 
 .App {
   text-align: center;
-  padding: 0;
+  padding: 10px 0 0 0;
   margin: 0;
+  overflow: hidden;
 }
 
 header {
@@ -27,11 +29,15 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  z-index: 9999;
+  padding-bottom: 3%;
 }
 
 .navbar {
-  padding: 3% 0 0 0;
-  position: relative;
+  padding: 2% 0 0 0;
+  text-decoration: dotted;
+  color: #1d2833;
 }
 
 nav {
@@ -198,4 +204,10 @@ main {
   color: #007bff;
   border: 1px solid red;
   color: #fff;
+}
+
+/* Contact Page */
+
+.contact-info {
+  padding: 120px;
 }

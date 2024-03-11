@@ -91,9 +91,9 @@ const blogData = [
   },
 ];
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './Components/Navbar';
 import BlogPreviewCard from './Components/BlogPreviewCard';
@@ -114,7 +114,7 @@ function App() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = blogData.slice(indexOfFirstPost, indexOfLastPost);
 
-  const handleBlogClick = (blog) => {
+  const handleBlogClick = (blog: any) => {
     setSelectedBlog(blog);
   };
 

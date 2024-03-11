@@ -1,5 +1,18 @@
+import React from 'react';
 import './BlogPage.css';
-const BlogPage = ({ blog, onClickBack }) => {
+
+interface Blog {
+  id: number;
+  title: string;
+  content: string;
+}
+
+interface BlogPageProps {
+  blog: Blog;
+  onClickBack: () => void;
+}
+
+const BlogPage: React.FC<BlogPageProps> = ({ blog, onClickBack }) => {
   return (
     <>
       <div className='blog-post'>

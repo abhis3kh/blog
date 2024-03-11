@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import Navbar from '../Components/Navbar';
 import './Contact.css';
-// ! TODO : Add error handling for invalid inputs test
-const Contact = () => {
-  const handleContactMe = (e) => {
+
+const Contact: React.FC = () => {
+  const handleContactMe = (e: FormEvent) => {
     e.preventDefault();
-    let message = e.target['message'].value;
-    let name = e.target['name'].value;
-    // Trim the value
-    message = message.trim();
-    name = name.trim();
-    // Create a mailto link
+    const target = e.target as typeof e.target & {
+      name: { value: string };
+      message: { value: string };
+    };
+    let message = target.message.value.trim();
+    let name = target.name.value.trim();
+
     const mailtoLink = `mailto:abhisekhmukherjee101@gmail.com?subject=Enquiry from Website%20Form&body=${encodeURIComponent(
       `${message} \n\n\n\n\n Sender Name : ${name}`
     )}`;
 
-    // Open the default mail app
     window.location.href = mailtoLink;
   };
+
   const clearContent = () => {
-    document.getElementById('name').value = '';
-    document.getElementById('message').value = '';
+    const nameInput = document.getElementById('name') as HTMLInputElement;
+    const messageInput = document.getElementById('message') as HTMLInputElement;
+
+    if (nameInput && messageInput) {
+      nameInput.value = '';
+      messageInput.value = '';
+    }
   };
 
   return (
@@ -37,12 +43,12 @@ const Contact = () => {
           <textarea
             name='message'
             id='message'
-            cols='60'
-            rows='10'
+            cols={60}
+            rows={10}
             placeholder='Please enter your message here'
           ></textarea>
           <button type='submit'>Send Message</button>
-          <br></br>
+          <br />
         </form>
         <button type='button' onClick={clearContent}>
           Clear Content

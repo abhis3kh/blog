@@ -1,4 +1,11 @@
-const BlogPreviewCard = ({ blog, onClick }) => {
+import React from 'react';
+
+interface BlogPreviewCardProps {
+  blog: any;
+  onClick: any;
+}
+
+const BlogPreviewCard: React.FC<BlogPreviewCardProps> = ({ blog, onClick }) => {
   return (
     <div className='blog-card' onClick={() => onClick(blog)}>
       <h3 className='preview-title'>{blog.title}</h3>

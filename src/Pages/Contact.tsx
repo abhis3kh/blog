@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
 import './Contact.css';
-// ! TODO : Add error handling for invalid inputs
+// ! TODO : Add error handling for invalid inputs test
 const Contact = () => {
   const handleContactMe = (e) => {
     e.preventDefault();
